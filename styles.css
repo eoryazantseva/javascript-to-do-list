@@ -73,3 +73,7 @@ input[type="button"] {
 i {
     margin: 0 15px;
 }
+
+.important {
+    background-color: pink;
+}

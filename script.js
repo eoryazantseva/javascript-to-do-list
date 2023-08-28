@@ -1,5 +1,6 @@
 const todoList = ['Quit my job', 'Go get Donuts', 'Have a nap', 'Walk the dog']
 const todoStatus = [false, false, false, false]
+const todoImportance = [false, false, false, false]
 
 function addTask() {
     // Get the item value  
@@ -18,6 +19,14 @@ function updateTodoList() {
     for (const [index, todo] of todoList.entries()) {
         const newTodoText = document.createElement('p') // <p></p>
         newTodoText.innerHTML = todo // <p>Quit my Job</p>
+
+
+        const markImportantButton = document.createElement('input')
+        markImportantButton.type = 'button'
+        markImportantButton.onclick = function() {
+            toggleImportant(index)
+        }
+        markImportantButton.value = 'Important'
 
 
 
@@ -44,6 +53,7 @@ function updateTodoList() {
         markCompleteButton.value = 'Complete' // <input type="button" value="Complete" />
 
         const controlTaskButtons = document.createElement('div')
+        controlTaskButtons.appendChild(markImportantButton)
         controlTaskButtons.appendChild(markImportanceUp)
         controlTaskButtons.appendChild(markImportanceDown)
         controlTaskButtons.appendChild(markCompleteButton)
@@ -51,17 +61,14 @@ function updateTodoList() {
         const newTodo = document.createElement('li')
         newTodo.appendChild(newTodoText)
         newTodo.appendChild(controlTaskButtons)
-  
- 
-            /**
-             * <li>
-             *  <p>Quit My Job</p>
-             *  <input type="button" value="complete" />
-             * </li>
-             */
+
 
         if (todoStatus[index] === true) {
             newTodo.classList.add('complete')
+        }
+
+        if (todoImportance[index] === true) {
+            newTodo.classList.add('important')
         }
 
         todoListElement.appendChild(newTodo)
@@ -71,7 +78,12 @@ function updateTodoList() {
 // const todoList = ['Quit my job', 'Go get Donuts', 'Have a nap', 'Walk the dog']
 // const todoStatus = [false, false, false, false]
 function toggleComplete(index) {
-    todoStatus[index] = true;
+    todoStatus[index] = !todoStatus[index]
+    updateTodoList()
+}
+
+function toggleImportant(index) {
+    todoImportance[index] = !todoImportance[index]
     updateTodoList()
 }
 
